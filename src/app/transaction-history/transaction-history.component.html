@@ -1,11 +1,12 @@
 <div class="container">
     <div class="jumbotron">
-        <h1>Transaction History </h1>
+        <h1 appHighlight>Transaction History </h1>
+        <app-animation-demo></app-animation-demo>
         <div class="row">
             <div class="col">
                 <app-delete-confirmation [id]="id" (onCancel)="onCancel($event)" (onDelete)="deleteTransaction($event)"></app-delete-confirmation>
 
-                <table>
+                <table >
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -14,7 +15,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let transaction of transactions">
+                        <tr [ngClass]="id==transaction._id? 'grey':'green'" *ngFor="let transaction of transactions">
                             <td>{{transaction._id}}</td>
                             <td>{{transaction.amount}}</td>
                             <td>{{transaction.typeOfTransaction}}</td>
