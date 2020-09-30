@@ -25,13 +25,18 @@ export class LoginComponent {
 
   login(){
     if(this.loginForm.valid){
-      const result = this.dataService.login(this.loginForm.value.acno,this.loginForm.value.pwd);
-      if(result){
-        alert('Login Successful')
-        this.router.navigateByUrl("dashboard")
-      }else{
-        alert('Invalid credentials')
-      }
+      this.dataService.login(this.loginForm.value.acno,this.loginForm.value.pwd)
+      .subscribe((data:any)=>{
+        if(data){
+          localStorage.setItem("name",data.name)
+          alert('Login Successful')
+          this.router.navigateByUrl("dashboard")
+        }else{
+          alert('Invalid credentials')
+        }
+      },(data)=>{
+        alert(data.error.message)
+      })
     }else{
       alert("Form is invalid");
     }
